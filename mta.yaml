@@ -90,6 +90,15 @@ resources:
     config:
       tenant-mode: dedicated
       xsappname: incident-management-${org}-${space}
+      role-collections:
+        - name: 'IncidentSupport-${org}-${space}'
+          description: Manage Incidents
+          role-template-references:
+            - $XSAPPNAME.support
+      oauth2-configuration:
+        redirect-uris:
+          - https://**.hana.ondemand.com/login/callback # Wildcard redirect to SAP BTP (You might want to make this more exclusive)
+            # example: - https://risk-management-approuter.cfapps.eu10-004.hana.ondemand.com/login/callback
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
@@ -133,4 +142,5 @@ build-parameters:
   before-all:
   - builder: custom
     commands:
+    - npm ci
     - npx cds build --production

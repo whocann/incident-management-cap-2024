@@ -128,7 +128,19 @@
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "tableSettings": {
-                                        "type": "ResponsiveTable"
+                                        "enableExport": false,
+                                        "quickVariantSelection": {
+                                            "hideTableTitle": false,
+                                            "showCounts": true,
+                                            "paths": [
+                                                {
+                                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SelVarSO"
+                                                },
+                                                {
+                                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SelVarRO"
+                                                }
+                                            ]
+                                        }
                                     }
                                 }
                             }

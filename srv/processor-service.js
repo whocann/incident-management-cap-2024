@@ -6,6 +6,21 @@ class ProcessorService extends cds.ApplicationService {
     this.before("UPDATE", "Incidents", (req) => this.onUpdate(req));
     this.before("CREATE", "Incidents", (req) => this.changeUrgencyDueToSubject(req.data));
 
+    this.on('ga_op_calculation', req => { 
+      console.log(req.data);
+      req.info(`ga_op_calculate \n\n action triggered with context: \n\n ${JSON.stringify(req.params)}`);
+    }); 
+
+    this.on('READ', "BusinessPartners", async (req)=> { 
+      req.query.where("LastName <> '' and FirstName <> '' ");
+      const BPsrv = await cds.connect.to("API_BUSINESS_PARTNER");
+      return await BPsrv.transaction(req).send({
+          query: req.query,
+          headers: {
+              apikey: process.env.apikey,
+          },
+      });
+    });
     return super.init();
   }
 
@@ -26,5 +41,7 @@ class ProcessorService extends cds.ApplicationService {
     if (status_code === 'C')
       return req.reject(`Can't modify a closed incident`)
   }
+
+  
 }
 module.exports = ProcessorService

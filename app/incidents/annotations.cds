@@ -180,3 +180,40 @@ annotate service.Incidents.conversation with @(
             Value : timestamp,
         },]
 );
+
+//UI delete action hidden
+// annotate service.Incidents with @(
+//     UI.DeleteHidden: true
+// );
+
+
+annotate service.Incidents with @(
+    UI.SelectionVariant #SelVarRO: {
+        $Type        : 'UI.SelectionVariantType',
+        Text         : 'closed incidents',
+        SelectOptions: [{
+            $Type       : 'UI.SelectOptionType',
+            PropertyName: status_code,
+            Ranges      : [{
+                $Type : 'UI.SelectionRangeType',
+                Sign  : #I,
+                Option: #EQ,
+                Low   : 'C'
+            }]
+        }]
+    },
+    UI.SelectionVariant #SelVarSO: {
+        $Type        : 'UI.SelectionVariantType',
+        Text         : 'open incidents',
+        SelectOptions: [{
+            $Type       : 'UI.SelectOptionType',
+            PropertyName: status_code,
+            Ranges      : [{
+                $Type : 'UI.SelectionRangeType',
+                Sign  : #I,
+                Option: #NE,
+                Low   : 'C'
+            }]
+        }]
+    }
+);
