@@ -21,6 +21,7 @@ class ProcessorService extends cds.ApplicationService {
           },
       });
     });
+
     return super.init();
   }
 

@@ -25,6 +25,7 @@ entity BusinessPartners as projection on external.A_BusinessPartner {
 
     @readonly
     entity Customers as projection on my.Customers;
+    
 }
 
 extend projection ProcessorService.Customers with {
